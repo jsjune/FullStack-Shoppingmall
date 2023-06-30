@@ -17,7 +17,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Make application.yml
-        run: echo "${{ secrets.PROPERTIES }}" > ./be/src/main/resources/application.yml
+        run: |
+          mkdir -p ./src/main/resources
+          echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.yml
       
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
