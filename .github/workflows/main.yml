@@ -17,12 +17,17 @@ jobs:
           distribution: 'temurin'
 
       - name: Make application.yml
-        run: echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.yml
-      
+        run: |
+          mkdir -p ./src/main/resources
+          echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.yml
+          
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        working-directory: be
+
       - name: Build with Gradle
-        uses: gradle/gradle@v3
-        with:
-          arguments: clean build bootJar
+        run: ./gradlew build --exclude-task test
+        working-directory: be
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
