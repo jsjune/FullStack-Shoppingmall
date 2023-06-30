@@ -124,7 +124,7 @@ class UserControllerDocsTest extends RestDocsSupport {
                 ));
     }
 
-    @DisplayName("로그인 실패 API")
+    @DisplayName("토큰 만료 API")
     @Test
     void login_fail() throws Exception {
         // given

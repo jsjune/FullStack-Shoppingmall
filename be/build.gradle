@@ -78,9 +78,9 @@ test {
 }
 
 asciidoctor {
+    inputs.dir snippetsDir
     dependsOn test
     configurations 'asciidoctorExt'
-    inputs.dir snippetsDir
 
     sources {
         include("**/index.adoc")  // index.adoc 파일을 HTML로 변환
@@ -88,11 +88,19 @@ asciidoctor {
     baseDirFollowsSourceFile() // 다른 adoc 파일을 include 할 때 경로를 baseDir로 맞춘다.
 }
 
-bootJar {
+asciidoctor.doFirst {
+    delete file("${project.rootDir}/src/main/resources/static/docs")
+}
+
+tasks.register('copyDocument', Copy) {
     dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}") {
-        into 'static/docs'
-    }
+
+    from "${project.buildDir}/docs/asciidoc"
+    into "${project.rootDir}/src/main/resources/static/docs"
+}
+
+build {
+    dependsOn copyDocument
 }
 
 // jacoco
