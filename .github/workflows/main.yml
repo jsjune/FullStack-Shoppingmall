@@ -39,7 +39,7 @@ jobs:
       - name: Generate deployment package
         run: |
           mkdir -p deployment
-          cp build/libs/app.jar deployment/app.jar
+          cp be/build/libs/app.jar deployment/app.jar
           cd deployment && zip -r app-${{ steps.current-time.outputs.formattedTime }} .
 
       - name: Deploy Hello GitHub Action to EB
