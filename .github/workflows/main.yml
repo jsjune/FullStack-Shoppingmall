@@ -20,14 +20,11 @@ jobs:
         run: |
           mkdir -p ./src/main/resources
           echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.yml
-      
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-        shell: bash
-
+          
       - name: Build with Gradle
-        run: ./gradlew build
-        shell: bash
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: clean build bootJar
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
