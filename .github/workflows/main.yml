@@ -33,18 +33,17 @@ jobs:
 
     - name: Generate deployment package
       run: |
-        mkdir -p deployment
-        cp build/libs/app.jar deployment/app.jar
+				mkdir -p deployment
+				cp build/libs/app.jar deployment/app.jar
         cd deployment && zip -r app-${{ steps.current-time.outputs.formattedTime }} .
-	ls
 
     - name: Deploy Hello Githup Action to EB
       uses: einaregilsson/beanstalk-deploy@v14
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: [AWS 빈스톡 애플리케이션 이름]
-        environment_name: [AWS 빈스톡 애플리케이션 환경 이름]
-        version_label: app-${{ steps.current-time.outputs.formattedTime }}
-        region: ap-northeast-2
-        deployment_package: deployment/app-${{ steps.current-time.outputs.formattedTime }}.zip
+			with:		
+				aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+				aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+				application_name: shoppingmall-api-app
+				environment_name: Shoppingmall-api-app-env
+				version_label: app-${{ steps.current-time.outputs.formattedTime }}
+				region: ap-northeast-2
+				deployment_package: deployment/app-${{ steps.current-time.outputs.formattedTime }}.zip
