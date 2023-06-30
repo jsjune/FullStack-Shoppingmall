@@ -18,8 +18,8 @@ jobs:
 
       - name: Make application.yml
         run: |
-          mkdir -p ./src/main/resources
-          echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.yml
+          mkdir -p ./be/src/main/resources
+          echo "${{ secrets.PROPERTIES }}" > ./be/src/main/resources/application.yml
           
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
