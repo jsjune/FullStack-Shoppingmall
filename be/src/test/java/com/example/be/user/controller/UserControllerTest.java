@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled
 class UserControllerTest extends ControllerTestSupport {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -25,7 +26,6 @@ class UserControllerTest extends ControllerTestSupport {
 
     @DisplayName("회원 가입에 성공하였습니다.")
     @Test
-    @Disabled
     void signup() throws Exception {
         // given
         SignupRequest request = SignupRequest.builder()
@@ -45,7 +45,6 @@ class UserControllerTest extends ControllerTestSupport {
 
     @DisplayName("로그인에 성공하였습니다.")
     @Test
-    @Disabled
     void login() throws Exception {
         // given
         LoginRequest request = new LoginRequest("abc@naver.com", "1234");

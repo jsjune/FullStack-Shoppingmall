@@ -29,7 +29,7 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-
+@Disabled
 class JwtUtilsTest extends IntegrationTestSupport {
 
     @Value("${jwt.app.jwtSecret}")
@@ -48,7 +48,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("request에서 헤더를 추출했을때 토큰이 없을 경우 입니다.")
     @Test
-    @Disabled
     void parseJwtToken_returnNull() {
         // given
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -62,7 +61,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("HttpServlet request에서 헤더값 추출해서 accessToken을 가져옵니다.")
     @Test
-    @Disabled
     void parseJwtToken() {
         // given
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -79,7 +77,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("이메일로 accessToken을 생성합니다.")
     @Test
-    @Disabled
     void generateAccessTokenFromEmail() {
         // given
 
@@ -92,7 +89,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("JWT 토큰이 유효합니다.")
     @Test
-    @Disabled
     void validateJwtToken() throws IOException {
         // given
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -108,7 +104,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("JWT 토큰이 유효하지 않습니다.")
     @Test
-    @Disabled
     void invalidJwtToken_MalformedJwtException() throws IOException {
         // given
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -126,7 +121,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("JWT 토큰이 만료되었습니다.")
     @Test
-    @Disabled
     void invalidJwtToken_ExpiredJwtException() throws IOException {
         // given
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -144,7 +138,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("JWT 토큰 형식이 유효하지 않습니다.")
     @Test
-    @Disabled
     void invalidJwtToken_UnsupportedJwtException() throws NoSuchAlgorithmException, IOException {
         // given
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -162,7 +155,6 @@ class JwtUtilsTest extends IntegrationTestSupport {
 
     @DisplayName("JWT 토큰을 디코딩하여 id와 role을 추출하여 LoginUser 객체를 만든다.")
     @Test
-    @Disabled
     void verify() {
         // given
         String token = createToken();
