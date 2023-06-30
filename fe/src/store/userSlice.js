@@ -52,7 +52,7 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        toast.error(action.payload);
+        toast.error(action.payload.error.message);
       })
 
       .addCase(logoutUser.pending, (state) => {

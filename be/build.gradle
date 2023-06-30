@@ -62,6 +62,10 @@ dependencies {
 
 }
 
+jar {
+    archiveFileName = 'app.jar'
+}
+
 // RestDocs
 ext { // 전역 변수
     snippetsDir = file('build/generated-snippets')

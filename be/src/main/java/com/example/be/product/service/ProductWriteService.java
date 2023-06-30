@@ -7,14 +7,9 @@ import com.example.be.product.entity.ImageDao;
 import com.example.be.product.entity.Product;
 import com.example.be.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -34,7 +29,16 @@ public class ProductWriteService {
     public void productRegister(ProductRequest request) {
         // 이미지 파일 업로드 x
         if (Objects.isNull(request.getFile())) {
-            System.out.println("이미지 없다");
+            Product product = Product.builder()
+                    .userId(request.getWriter())
+                    .title(request.getTitle())
+                    .description(request.getDescription())
+                    .price(request.getPrice())
+                    .sold(0L)
+                    .continents(request.getContinents())
+                    .views(0L)
+                    .build();
+            productRepository.save(product);
         } else {
             // 이미지 파일 업로드 O
             Set<ImageDao> savedImages = new HashSet<>();
@@ -53,7 +57,17 @@ public class ProductWriteService {
 
                 savedImages.add(new ImageDao(orgImageUrl, thumbImageUrl));
             }
-
+            Product product = Product.builder()
+                    .userId(request.getWriter())
+                    .title(request.getTitle())
+                    .description(request.getDescription())
+                    .price(request.getPrice())
+                    .imageUrls(savedImages)
+                    .sold(0L)
+                    .continents(request.getContinents())
+                    .views(0L)
+                    .build();
+            productRepository.save(product);
         }
     }
 

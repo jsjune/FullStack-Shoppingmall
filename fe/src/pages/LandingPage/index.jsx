@@ -8,7 +8,7 @@ const LandingPage = () => {
   return (
     <section>
       <div className='text-center m-7'>
-        <h2>여행 상품 사이트</h2>
+        <h2 className='text-2xl'>여행 상품 사이트</h2>
       </div>
 
       {/* Filter */}
