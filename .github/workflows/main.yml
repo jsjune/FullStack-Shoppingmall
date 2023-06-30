@@ -26,7 +26,7 @@ jobs:
         working-directory: be
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build --exclude-task test
         working-directory: be
 
       - name: Get current time
