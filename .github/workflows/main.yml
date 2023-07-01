@@ -50,8 +50,8 @@ jobs:
         with:		
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: shoppingmall-api-app
-          environment_name: Shoppingmall-api-app-env
+          application_name: shopping-mall-api-app
+          environment_name: Shopping-mall-api-app-env
           version_label: app-${{ steps.current-time.outputs.formattedTime }}
           region: ap-northeast-2
           deployment_package: deployment/app-${{ steps.current-time.outputs.formattedTime }}.zip
