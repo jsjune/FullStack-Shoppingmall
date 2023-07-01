@@ -21,7 +21,7 @@ include::{snippets}/user-login/response-fields.adoc[]
 
 ---
 
-=== 로그인 실패
+=== 토큰 만료
 ==== HTTP Request
 include::{snippets}/user-login-fail/http-request.adoc[]
 include::{snippets}/user-login-fail/request-fields.adoc[]
