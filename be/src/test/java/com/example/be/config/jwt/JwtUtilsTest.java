@@ -29,7 +29,6 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Disabled
 class JwtUtilsTest extends IntegrationTestSupport {
 
     @Value("${jwt.app.jwtSecret}")

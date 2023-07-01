@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-@Disabled
 public abstract class ControllerTestSupport {
     @Autowired
     protected MockMvc mockMvc;
