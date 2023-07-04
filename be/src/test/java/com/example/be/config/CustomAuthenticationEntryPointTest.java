@@ -29,8 +29,8 @@ class CustomAuthenticationEntryPointTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String expectedResponse = objectMapper.writeValueAsString(
                 ResponseDto.fail(
-                        ErrorCode.UsernameNotFoundException.getCode(),
-                        ErrorCode.UsernameNotFoundException.getMessage()
+                        ErrorCode.NOT_FOUND_EMAIL.getCode(),
+                        ErrorCode.NOT_FOUND_EMAIL.getMessage()
                 )
         );
 
@@ -53,8 +53,8 @@ class CustomAuthenticationEntryPointTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String expectedResponse = objectMapper.writeValueAsString(
                 ResponseDto.fail(
-                        ErrorCode.BadCredentialsException.getCode(),
-                        ErrorCode.BadCredentialsException.getMessage()
+                        ErrorCode.INVALID_PASSWORD.getCode(),
+                        ErrorCode.INVALID_PASSWORD.getMessage()
                 )
         );
 

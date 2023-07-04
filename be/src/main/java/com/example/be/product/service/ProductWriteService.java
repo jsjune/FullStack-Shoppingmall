@@ -8,19 +8,21 @@ import com.example.be.product.entity.Product;
 import com.example.be.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 import static com.example.be.common.exception.ErrorCode.NOT_IMAGE_FILE;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductWriteService {
     private final ProductRepository productRepository;
     private final S3Service s3Service;
@@ -41,7 +43,7 @@ public class ProductWriteService {
             productRepository.save(product);
         } else {
             // 이미지 파일 업로드 O
-            Set<ImageDao> savedImages = new HashSet<>();
+            List<ImageDao> savedImages = new ArrayList<>();
             for (MultipartFile image : request.getFile()) {
                 if (!Objects.requireNonNull(image.getContentType()).startsWith("image")) {
                     throw new GlobalException(NOT_IMAGE_FILE);
@@ -70,6 +72,5 @@ public class ProductWriteService {
             productRepository.save(product);
         }
     }
-
 
 }

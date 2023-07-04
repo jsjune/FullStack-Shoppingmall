@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.PROD ? '' : 'http://localhost:8080',
+  // baseURL: import.meta.env.PROD ? '' : 'http://shopping-mall.ap-northeast-2.elasticbeanstalk.com/',
+  baseURL: import.meta.env.PROD ? '' : 'http://localhost:5000/',
 });
 
 axiosInstance.interceptors.request.use(

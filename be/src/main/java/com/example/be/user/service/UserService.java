@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.example.be.common.exception.ErrorCode.EXIST_EMAIL;
 import static com.example.be.user.entity.UserEnum.CUSTOMER;
 
 @Service
@@ -30,7 +29,7 @@ public class UserService {
 
     public void signup(SignupRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new GlobalException(ErrorCode.EXIST_EMAIL);
+            throw new GlobalException(ErrorCode.EXIST_EMAIL, ErrorCode.EXIST_EMAIL.getMessage());
         }
         User user = User.builder()
                 .email(request.getEmail())

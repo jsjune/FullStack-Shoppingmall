@@ -10,8 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestSupport{
     @Autowired
     private UserRepository userRepository;
 

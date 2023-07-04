@@ -6,7 +6,8 @@ export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`http://localhost:8080/users/signup`, body);
+      // const response = await axios.post(`http://shopping-mall.ap-northeast-2.elasticbeanstalk.com/users/signup`, body);
+      const response = await axios.post(`http://localhost:5000/users/signup`, body);
 
       return response.data;
     } catch (error) {
@@ -20,7 +21,8 @@ export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`http://localhost:8080/users/login`, body);
+      // const response = await axios.post(`http://shopping-mall.ap-northeast-2.elasticbeanstalk.com/users/login`, body);
+      const response = await axios.post(`http://localhost:5000/users/login`, body);
 
       return response.data;
     } catch (error) {

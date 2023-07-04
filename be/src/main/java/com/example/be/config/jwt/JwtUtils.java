@@ -31,6 +31,7 @@ import static com.example.be.config.jwt.JwtProperties.*;
 @Getter
 public class JwtUtils {
     private final Key key;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     //The specified key byte array is 248 bits which is not secure enough for any JWT HMAC-SHA algorithm.
     // The JWT JWA Specification (RFC 7518, Section 3.2) states that keys used with HMAC-SHA algorithms MUST have a size >= 256 bits (the key size must be greater than or equal to the hash output size).
@@ -53,20 +54,17 @@ public class JwtUtils {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (MalformedJwtException e) {
-            log.warn("Invalid JWT token: {}", e.getMessage());
-            setResponse(response, INVALID_JWT_TOKEN);
+            setResponse(response, INVALID_JWT_TOKEN, e);
         } catch (ExpiredJwtException e) {
-            log.warn("JWT token is expired: {}", e.getMessage());
-            setResponse(response, EXPIRED_ACCESS_TOKEN);
+            setResponse(response, EXPIRED_ACCESS_TOKEN, e);
         } catch (UnsupportedJwtException e) {
-            log.warn("JWT token is unsupported: {}", e.getMessage());
-            setResponse(response, UNSUPPORTED_JWT_TOKEN);
+            setResponse(response, UNSUPPORTED_JWT_TOKEN, e);
         }
         return false;
     }
 
-    private void setResponse(HttpServletResponse response, ErrorCode errorCode) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    private void setResponse(HttpServletResponse response, ErrorCode errorCode, Exception e) throws IOException {
+        log.error(errorCode.getMessage(), e);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -77,8 +75,8 @@ public class JwtUtils {
 
     public String generateAccessTokenFromLoginUser(LoginUser loginUser) {
         return Jwts.builder()
-                .claim("id",loginUser.getUser().getId())
-                .claim("role",loginUser.getUser().getRole()+"")
+                .claim("id", loginUser.getUser().getId())
+                .claim("role", loginUser.getUser().getRole() + "")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + ACCESS_TOKEN_EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)

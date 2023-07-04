@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,14 +24,14 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "PRODUCT_ORIGINAL_IMAGES",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"))
-    private Set<ImageDao> imageUrls = new HashSet<>();
+    private List<ImageDao> imageUrls = new ArrayList<>();
 
     private Long sold;
     private int continents;
     private Long views;
 
     @Builder
-    public Product(Long userId, String title, String description, Long price, Set<ImageDao> imageUrls, Long sold, int continents, Long views) {
+    public Product(Long userId, String title, String description, Long price, List<ImageDao> imageUrls, Long sold, int continents, Long views) {
         this.userId = userId;
         this.title = title;
         this.description = description;
