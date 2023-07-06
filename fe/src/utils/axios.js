@@ -21,7 +21,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.log(error.response.data.error.code);
     if (error.response.data.error.code === 'TOKEN_02') {
       localStorage.removeItem('accessToken');
       window.location.reload();
