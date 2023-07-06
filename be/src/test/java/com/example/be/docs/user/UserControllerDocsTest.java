@@ -1,6 +1,5 @@
 package com.example.be.docs.user;
 
-import com.example.be.common.exception.GlobalControllerAdvice;
 import com.example.be.common.exception.GlobalException;
 import com.example.be.docs.RestDocsSupport;
 import com.example.be.user.controller.UserController;
@@ -8,11 +7,9 @@ import com.example.be.user.dto.request.LoginRequest;
 import com.example.be.user.dto.request.SignupRequest;
 import com.example.be.user.dto.response.LoginResponse;
 import com.example.be.user.entity.User;
-import com.example.be.user.service.UserService;
-import org.junit.jupiter.api.Disabled;
+import com.example.be.user.service.UserWriteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
@@ -30,11 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerDocsTest extends RestDocsSupport {
 
-    private final UserService userService = mock(UserService.class);
+    private final UserWriteService userWriteService = mock(UserWriteService.class);
 
     @Override
     protected Object initController() {
-        return new UserController(userService);
+        return new UserController(userWriteService);
     }
 
     @DisplayName("회원 가입 API")
@@ -84,7 +81,7 @@ class UserControllerDocsTest extends RestDocsSupport {
                         .profileImg("profile_image")
                         .build()
         );
-        given(userService.login(any(LoginRequest.class))).willReturn(mockResponse);
+        given(userWriteService.login(any(LoginRequest.class))).willReturn(mockResponse);
 
         // when // then
         mockMvc.perform(post("/users/login")
@@ -130,7 +127,7 @@ class UserControllerDocsTest extends RestDocsSupport {
         // given
         LoginRequest request = new LoginRequest("abc@naver.com", "1234");
 
-        given(userService.login(any(LoginRequest.class))).willThrow(new GlobalException(INVALID_JWT_TOKEN));
+        given(userWriteService.login(any(LoginRequest.class))).willThrow(new GlobalException(INVALID_JWT_TOKEN));
 
         // when // then
         mockMvc.perform(post("/users/login")

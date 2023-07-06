@@ -21,6 +21,7 @@ const routes = [
 const NavItem = ({ mobile }) => {
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.user?.isAuth);
+  const cart = useSelector(state => state.user?.userData?.cart);
 
   const handleLogout = () => {
     dispatch(logoutUser()).then(() => {
@@ -51,7 +52,7 @@ const NavItem = ({ mobile }) => {
           <Link to={to} >
             {icon}
             <span className='absolute top-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -right-3'>
-              {1}
+              {cart?.length>0 ? cart.length : 0}
             </span>
           </Link>
         </li>

@@ -1,8 +1,8 @@
 package com.example.be.product.repository;
 
 import com.example.be.product.dto.ImageDaoDto;
-import com.example.be.product.dto.ProductListDto;
-import com.example.be.product.dto.response.ProductResponse;
+import com.example.be.product.dto.ProductDto;
+import com.example.be.product.dto.response.ProductsResponse;
 import com.example.be.product.entity.Product;
 import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,9 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public ProductResponse getTotalProducts(Pageable pageable, List<Integer> continents, List<Integer> price, String searchTerm) {
+    public ProductsResponse getTotalProducts(Pageable pageable, List<Integer> continents, List<Integer> price, String searchTerm) {
 
-        List<ProductListDto> products = jpaQueryFactory.selectDistinct(Projections.constructor(ProductListDto.class,
+        List<ProductDto> products = jpaQueryFactory.selectDistinct(Projections.constructor(ProductDto.class,
                         product.id,
                         product.title,
                         product.continents,
@@ -53,13 +54,13 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 )
                 .from(product)
                 .fetchOne();
-        PageImpl<ProductListDto> productList = new PageImpl<>(products, pageable, count);
-        return new ProductResponse(count, productList);
+        PageImpl<ProductDto> productList = new PageImpl<>(products, pageable, count);
+        return new ProductsResponse(count, productList);
     }
 
-    private void fillProductImages(List<ProductListDto> productList) {
+    private void fillProductImages(List<ProductDto> productList) {
         List<Long> productIds = productList.stream()
-                .map(ProductListDto::getId)
+                .map(ProductDto::getId)
                 .collect(Collectors.toList());
 
         Map<Long, List<ImageDaoDto>> imageMap  = jpaQueryFactory.select(product.id, Projections.constructor(ImageDaoDto.class,

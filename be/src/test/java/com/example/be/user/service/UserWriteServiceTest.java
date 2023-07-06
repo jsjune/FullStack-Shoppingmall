@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserWriteServiceTest {
     @Mock
     private UserRepository userRepository;
 
@@ -40,7 +40,7 @@ class UserServiceTest {
     private JwtUtils jwtUtils;
 
     @InjectMocks
-    private UserService userService;
+    private UserWriteService userWriteService;
 
     @DisplayName("이메일이 이미 존재하여 회원 가입을 실패합니다.")
     @Test
@@ -55,7 +55,7 @@ class UserServiceTest {
         when(userRepository.existsByEmail(email)).thenReturn(true);
 
         // then
-        assertThatThrownBy(() -> userService.signup(request))
+        assertThatThrownBy(() -> userWriteService.signup(request))
                 .isInstanceOf(GlobalException.class)
                 .satisfies(ex -> {
                     assertThat(((GlobalException) ex).getErrorCode()).isEqualTo(EXIST_EMAIL);
@@ -78,7 +78,7 @@ class UserServiceTest {
         // when
         when(userRepository.existsByEmail(request.getEmail())).thenReturn(false);
         when(bCryptPasswordEncoder.encode(request.getPassword())).thenReturn("hashedPassword");
-        userService.signup(request);
+        userWriteService.signup(request);
 
         // then
         verify(userRepository).existsByEmail(request.getEmail());
@@ -101,7 +101,7 @@ class UserServiceTest {
         when(loginUser.getUser()).thenReturn(user);
 
         LoginRequest loginRequest = new LoginRequest("test@example.com", "password");
-        LoginResponse loginResponse = userService.login(loginRequest);
+        LoginResponse loginResponse = userWriteService.login(loginRequest);
 
         // then
         assertThat(loginResponse.getAccessToken()).isEqualTo("accessToken");

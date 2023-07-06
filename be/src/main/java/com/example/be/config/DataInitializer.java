@@ -21,8 +21,8 @@ public class DataInitializer {
     public void initializeData() {
 
         List<ImageDao> images = new ArrayList<>();
-        images.add(new ImageDao("https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/5c1c513b-bc3c-499b-b58b-fbf9fe9384e5_aws_cover.png", "https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/6ec5cd74-5cc5-42f9-aa41-1947821e31a9_http_logo.jpg"));
-        images.add(new ImageDao("https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/6ec5cd74-5cc5-42f9-aa41-1947821e31a9_http_logo.jpg", ""));
+        images.add(new ImageDao("https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/5c1c513b-bc3c-499b-b58b-fbf9fe9384e5_aws_cover.png", "https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/s_5c1c513b-bc3c-499b-b58b-fbf9fe9384e5_aws_cover.png"));
+        images.add(new ImageDao("https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/6ec5cd74-5cc5-42f9-aa41-1947821e31a9_http_logo.jpg", "https://jsj-bucket.s3.ap-northeast-2.amazonaws.com/images/2023/06-30/s_6ec5cd74-5cc5-42f9-aa41-1947821e31a9_http_logo.jpg"));
 
         Random random = new Random();
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

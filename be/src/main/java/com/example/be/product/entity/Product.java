@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Product {
     private Long price;
 
     @ElementCollection
-    @CollectionTable(name = "PRODUCT_ORIGINAL_IMAGES",
+    @CollectionTable(name = "PRODUCT_IMAGES",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"))
     private List<ImageDao> imageUrls = new ArrayList<>();
 

@@ -143,7 +143,7 @@ const LandingPage = () => {
         </div>
       </div>
       {/* Search */}
-      <div className="flex justify-end">
+      <div className="flex justify-end mb-3">
         <SearchInput searchTerm={searchTerm} onSearch={handleSearchTerm} />
       </div>
 

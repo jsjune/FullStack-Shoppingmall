@@ -2,7 +2,8 @@ package com.example.be.product.controller;
 
 import com.example.be.common.dto.ResponseDto;
 import com.example.be.product.dto.request.ProductRequest;
-import com.example.be.product.dto.response.ProductResponse;
+import com.example.be.product.dto.response.DetailProductResponse;
+import com.example.be.product.dto.response.ProductsResponse;
 import com.example.be.product.service.ProductReadService;
 import com.example.be.product.service.ProductWriteService;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +26,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseDto<ProductResponse> getProducts(Pageable pageable,
-                                                    @RequestParam(required = false) List<Integer> continents,
-                                                    @RequestParam(required = false) List<Integer> price,
-                                                    @RequestParam(required = false) String searchTerm) {
-        return ResponseDto.success(productReadService.getProduct(pageable, continents, price, searchTerm));
+    public ResponseDto<ProductsResponse> getProducts(Pageable pageable,
+                                                     @RequestParam(required = false) List<Integer> continents,
+                                                     @RequestParam(required = false) List<Integer> price,
+                                                     @RequestParam(required = false) String searchTerm) {
+        return ResponseDto.success(productReadService.getProducts(pageable, continents, price, searchTerm));
+    }
+
+    @GetMapping("/cart/{productId}")
+    public ResponseDto<DetailProductResponse> getDetailProduct(@PathVariable("productId") String productId, @RequestParam("type") String type) {
+        return ResponseDto.success(productReadService.getDetailProduct(productId, type));
     }
 
 }
